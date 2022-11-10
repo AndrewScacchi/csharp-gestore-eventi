@@ -13,7 +13,8 @@
 
 //ai setters inserire gli opportuni controlli in modo che la data non sia già passata, che il titolo
 //non sia vuoto e che la capienza massima di posti sia un numero positivo. In caso contrario
-//sollevare opportune eccezioni.
+//sollevare opportune eccezioni
+//
 
 //Dichiarare un costruttore che prenda come parametri il titolo, la data e i posti a disposizione
 //e inizializza gli opportuni attributi facendo uso dei metodi e controlli già fatti. Per l’attributo
@@ -42,3 +43,5 @@
 //Vi ricordo che man mano che andrete avanti con le altre milestones, potrete aggiungere più
 //avanti altri eventuali metodi (public e private) che vi aiutino a svolgere le funzioni richieste se
 //ritenete necessari!
+
+Console.WriteLine("Test Programm Start");
