@@ -53,5 +53,38 @@ public class Event
         SeatsCapacity = MaxCapacity;
         SeatsTaken = 0;
     }
+
+    public int PrenotaPosti(int inputBookings)
+    {
+        //if date is not past
+        //if seatsBooked >= than remaining posts
+
+        if ((SeatsCapacity-SeatsTaken) >= inputBookings && Date >= DateOnly.FromDateTime(DateTime.Now))
+        {
+            return SeatsTaken *= inputBookings;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public int DisdiciPosti(int inputUnBookings)
+    {
+        //delete post from event
+        if ((SeatsTaken - inputUnBookings) >= 0 && Date >= DateOnly.FromDateTime(DateTime.Now))
+        {
+            return SeatsTaken -= inputUnBookings;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    public override string ToString()
+    {
+        return Date + " - " + Title;
+    }
+
 }
 
