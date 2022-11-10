@@ -1,47 +1,101 @@
-﻿//MILESTONE 1
-//Per prima cosa è necessario creare una classe Evento che abbia i seguenti attributi:
-//● titolo
-//● data
-//● capienza massima dell’evento
-//● numero di posti prenotati
+﻿//MILESTONE 1 DONE
+//MILESTONE 2 
 
-//Aggiungere metodi getter e setter in modo che:
-//● titolo sia in lettura e in scrittura
-//● data sia in lettura e scrittura
-//● numero di posti per la capienza massima sia solo in lettura
-//● numero di posti prenotati sia solo in lettura
 
-//ai setters inserire gli opportuni controlli in modo che la data non sia già passata, che il titolo
-//non sia vuoto e che la capienza massima di posti sia un numero positivo. In caso contrario
-//sollevare opportune eccezioni
-//
-
-//Dichiarare un costruttore che prenda come parametri il titolo, la data e i posti a disposizione
-//e inizializza gli opportuni attributi facendo uso dei metodi e controlli già fatti. Per l’attributo
-//posti prenotati invece si occupa di inizializzarlo lui a 0.
-
-//Vanno inoltre implementati dei metodi public che svolgono le seguenti funzioni:
-
-//1.PrenotaPosti: aggiunge i posti passati come parametro ai posti prenotati. Se
-//l’evento è già passato o non ha posti o non ha più posti disponibili deve sollevare
-//un’eccezione.
-
-//2. DisdiciPosti: riduce del i posti prenotati del numero di posti indicati come
-//parametro. Se l’evento è già passato o non ci sono i posti da disdire
-//sufficienti, deve sollevare un’eccezione.
-
-//3. l’override del metodo ToString() in modo che venga restituita una stringa
-//contenente: data formattata – titolo
-//Per formattare la data correttamente usate
-//nomeVariabile.ToString("dd/MM/yyyy"); applicata alla vostra variabile
-//DateTime.
-
-//Le eccezioni possono essere generiche (Exception) o usate quelle già messe a
-//disposizione da C#, ma aggiungete un eventuale messaggio chiaro per
-//comunicare che cosa è successo.
-
-//Vi ricordo che man mano che andrete avanti con le altre milestones, potrete aggiungere più
-//avanti altri eventuali metodi (public e private) che vi aiutino a svolgere le funzioni richieste se
-//ritenete necessari!
+using System.Security.Cryptography.X509Certificates;
 
 Console.WriteLine("Test Programm Start");
+Console.WriteLine("");
+
+Console.WriteLine("What would you like to do?");
+Console.WriteLine("1 - See All available events [unavailable now]");
+Console.WriteLine("2 - Add a new Event");
+string answerPromptA = Console.ReadLine();
+if(answerPromptA == "1")
+{
+    Console.WriteLine("The option Selected is not Available");
+}
+else if(answerPromptA == "2")
+{
+    Console.WriteLine("To create a new event insert Event Name:");
+    string nameEvent = Console.ReadLine();
+
+    Console.WriteLine("Insert date event (mm/dd/yyyy)");
+    DateOnly dateEvent = DateOnly.Parse((Console.ReadLine()));
+
+    Console.WriteLine("Insert total seats numbers");
+    int maxSeatsEvent = Convert.ToInt32(Console.ReadLine());
+
+
+    try
+    {
+        //creating event and printing results
+        Event event1 = new Event(nameEvent, dateEvent, maxSeatsEvent);
+
+        //Further interaction with the Booking
+
+
+        //Booking Reservation ONCE
+        Console.WriteLine("---");
+        Console.WriteLine("Would you like to reserve some seats? [y/n]");
+        string answerBooking = Console.ReadLine();
+        if (answerBooking == "y")
+        {
+            Console.WriteLine("How Many Seats you wanna book?");
+            int toBeBooked = Convert.ToInt32(Console.ReadLine());
+            event1.PrenotaPosti(toBeBooked);
+
+            Console.WriteLine("Seats Available: {0}", (event1.SeatsCapacity - event1.SeatsTaken));
+
+            //PrintEvent("");
+        }
+        else
+        {
+            Console.WriteLine("nome evento: {0} \n " +
+               "Date event {1} \n " +
+               "Max available seats: {2} \n " +
+               "Seats Booked: {3} \n " +
+               "Seats Available: {4}", event1.Title, event1.Date, event1.SeatsTaken, event1.SeatsTaken, (event1.SeatsCapacity - event1.SeatsTaken));
+        }
+        //Booking removal Until NO
+        bool cycleUnbookTrue = true;
+        do
+        {
+            Console.WriteLine("---");
+            Console.WriteLine("Do you wanna unbook some seats? [y/n]");
+            string answerUnBooking = Console.ReadLine();
+
+
+            cycleUnbookTrue = true;
+            if (answerUnBooking == "y")
+            {
+                Console.WriteLine("How Many Seats you wanna Unbook?");
+                int toBeUnBooked = Convert.ToInt32(Console.ReadLine());
+                event1.DisdiciPosti(toBeUnBooked);
+
+                Console.WriteLine("Remaining Booking {0} out of {1} max Seats", event1.SeatsTaken, event1.SeatsCapacity);
+            }
+            else
+            {
+                cycleUnbookTrue = false;
+                Console.WriteLine("nome evento: {0} \n " +
+                "Date event {1} \n " +
+                "Max available seats: {2} \n " +
+                "Seats Booked: {3} \n " +
+                "Seats Available: {4}", event1.Title, event1.Date, event1.SeatsTaken, event1.SeatsTaken, (event1.SeatsCapacity - event1.SeatsTaken));
+            }
+        }
+        while (cycleUnbookTrue);
+    }
+    catch (GestoreEventiException e)
+    {
+        Console.WriteLine(e.ToString());
+    }
+
+}
+else
+{
+    Console.WriteLine("The option Selected is not Available");
+}
+
+

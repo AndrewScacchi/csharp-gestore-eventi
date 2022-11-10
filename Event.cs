@@ -18,7 +18,7 @@ public class Event
         {
             if (value == null || value == "")
             {
-                throw new GestoreEventiException("Il nome passato è vuoto");
+                throw new GestoreEventiException("The Name Set is empty or not valid");
             }
             _title = value;
         }
@@ -33,7 +33,7 @@ public class Event
         {
             if (value <= DateOnly.FromDateTime(DateTime.Now))
             {
-                throw new GestoreEventiException("La data passata è antecedente a quella attuale");
+                throw new GestoreEventiException("The Date set is not valid");
             }
             _date = value;
         }
@@ -48,7 +48,7 @@ public class Event
         Date = date;
         if (MaxCapacity < 0)
         {
-            throw new GestoreEventiException("Inserire un numero maggiore a zero");
+            throw new GestoreEventiException("Insert a positive integer");
         }
         SeatsCapacity = MaxCapacity;
         SeatsTaken = 0;
@@ -61,7 +61,7 @@ public class Event
 
         if ((SeatsCapacity-SeatsTaken) >= inputBookings && Date >= DateOnly.FromDateTime(DateTime.Now))
         {
-            return SeatsTaken *= inputBookings;
+            return SeatsTaken += inputBookings;
         }
         else
         {
@@ -86,5 +86,13 @@ public class Event
         return Date + " - " + Title;
     }
 
+    //public void PrintEvent(string eventActual)
+    //{
+    //    Console.WriteLine("nome evento: {0} \n " +
+    //          "Date event {1} \n " +
+    //          "Max available seats: {2} \n " +
+    //          "Seats Booked: {3} \n " +
+    //          "Seats Available: {4}", eventActual.Title, eventActual.Date, eventActual.SeatsCapacity, eventActual.SeatsTaken, (eventActual.SeatsCapacity - eventActual.SeatsTaken));
+    //}
 }
 
